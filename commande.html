@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcoming Café - Commandes</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+TZ:wght@100..400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="./index.html">Accueil</a></li>
+                <li><a href="./menu.html">Menu</a></li>
+                <li><a class="active" href="./commande.html">Commandes</a></li>
+                <li><a href="./ambiance.html">Ambiance</a></li>
+                <li><a href="./events.html">Evènements</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Effectuez directement votre Commande</h1>
+    <div id="commande" style="display:block;">
+        <form action="">
+            <label for="nom">Nom:</label>
+            <input type="text" name="nom" id="nom" placeholder="votre nom" ><br>
+            <label for="prenom">Prénom:</label>
+            <input type="text" name="prenom" id="prenom" placeholder="votre prénom" ><br>
+            <label for="mail">email</label>
+            <input type="email" name="mail" id="mail" placeholder="votre email" ><br>
+            
+            <div class="product">
+                <label for="expresso">Expresso</label>
+                <input type="number" id="expressoQty" name="expressoQty" value="0" min="0" onchange="updatePrice()">
+               <span id="expressoPrice">0€</span>
+            </div>
+            <div class="product">
+                <label for="cappuccino">Cappuccino</label>
+                <input type="number" id="cappuccinoQty" name="cappuccinoQty" value="0" min="0" onchange="updatePrice()">
+               <span id="cappuccinoPrice">0€</span>
+            </div>
+            <div class="product">
+                <label for="latte">Latte</label>
+                <input type="number" id="latteQty" name="latteQty" value="0" min="0" onchange="updatePrice()">
+                <span id="lattePrice">0€</span>
+            </div>
+            <div class="product">
+               <label for="americano">Americano</label>
+              <input type="number" id="americanoQty" name="americanoQty" value="0" min="0" onchange="updatePrice()">
+              <span id="americanoPrice">0€</span>
+            </div>
+            <div class="product">
+              <label for="mocha">Mocha</label>
+               <input type="number" id="mochaQty" name="mochaQty" value="0" min="0" onchange="updatePrice()">
+               <span id="mochaPrice">0€</span>
+            </div>
+            <div class="product">
+                <label for="macchiato">Macchiato</label>
+                <input type="number" id="macchiatoQty" name="macchiatoQty" value="0" min="0" onchange="updatePrice()">
+                <span id="macchiatoPrice">0€</span>
+            </div>
+            <div class="product">
+                <label for="white">Flat White</label>
+                <input type="number" id="whiteQty" name="whiteQty" value="0" min="0" onchange="updatePrice()">
+                <span id="whitePrice">0€</span>
+            </div>
+            <div class="product">
+                <label for="affogato">Affogato</label>
+                <input type="number" id="affogatoQty" name="affogatoQty" value="0" min="0" onchange="updatePrice()">
+                <span id="affogatoPrice">0€</span>
+            </div>
+            <div class="product">
+                <label for="lait">Café au Lait</label>
+                <input type="number" id="laitQty" name="laitQty" value="0" min="0" onchange="updatePrice()">
+                <span id="laitPrice">0€</span>
+            </div>
+            <div class="product">
+                <label for="chai">Chai Latte</label>
+                <input type="number" id="chaiQty" name="chaiQty" value="0" min="0" onchange="updatePrice()">
+                <span id="chaiPrice">0€</span>
+            </div>
+            <button id="btn-hover" type="button" onclick="showSummary()">Valider la commande</button>
+        </form>
+    </div>    
+    <div id="summaryFrame" style="display:none;">
+        <h2>Résumé de la commande de:</h2>
+        <div id="summaryContent"></div>
+        <p>Total: <span id="totalPrice">0€</span></p>
+    </div>
+    <footer>
+        <div class="social-media">
+            <a href="https://www.facebook.com" target="_blank">Facebook</a>
+            <a href="https://www.instagram.com" target="_blank">Instagram</a>
+            <a href="https://www.x.com" target="_blank">X</a>
+        </div>
+        <div class="legal">
+            <a href="/mentions-legales">Mentions Légales</a>
+        </div>
+    </footer>
+    <script>
+        const prices = {
+            expresso: 1.5,
+            cappuccino: 2.5,
+            latte: 3,
+            americano: 2,
+            mocha: 3.5,
+            macchiato: 2.2,
+            white: 3,
+            affogato: 4,
+            lait: 2.5,
+            chai: 3.5,
+        };
+
+        function updatePrice() {
+            const expressoQty = document.getElementById('expressoQty').value;
+            const cappuccinoQty = document.getElementById('cappuccinoQty').value;
+            const latteQty = document.getElementById('latteQty').value;
+            const americanoQty = document.getElementById('americanoQty').value;
+            const mochaQty = document.getElementById('mochaQty').value;
+            const macchiatoQty = document.getElementById('macchiatoQty').value;
+            const whiteQty = document.getElementById('whiteQty').value;
+            const affogatoQty = document.getElementById('affogatoQty').value;
+            const laitQty = document.getElementById('laitQty').value;
+            const chaiQty = document.getElementById('chaiQty').value;
+
+            const expressoPrice = expressoQty * prices.expresso;
+            const cappuccinoPrice = cappuccinoQty * prices.cappuccino;
+            const lattePrice = latteQty * prices.latte;
+            const americanoPrice = americanoQty * prices.americano;
+            const mochaPrice = mochaQty * prices.mocha;
+            const macchiatoPrice = macchiatoQty * prices.macchiato;
+            const whitePrice = whiteQty * prices.white;
+            const affogatoPrice = affogatoQty * prices.affogato;
+            const laitPrice = laitQty * prices.lait;
+            const chaiPrice = chaiQty * prices.chai;
+
+            document.getElementById('expressoPrice').innerText = `${expressoPrice}€`;
+            document.getElementById('cappuccinoPrice').innerText = `${cappuccinoPrice}€`;
+            document.getElementById('lattePrice').innerText = `${lattePrice}€`;
+            document.getElementById('americanoPrice').innerText = `${americanoPrice}€`;
+            document.getElementById('mochaPrice').innerText = `${mochaPrice}€`;
+            document.getElementById('macchiatoPrice').innerText = `${macchiatoPrice}€`;
+            document.getElementById('whitePrice').innerText = `${whitePrice}€`;
+            document.getElementById('affogatoPrice').innerText = `${affogatoPrice}€`;
+            document.getElementById('laitPrice').innerText = `${laitPrice}€`;
+            document.getElementById('chaiPrice').innerText = `${chaiPrice}€`;
+
+            const totalPrice = expressoPrice + cappuccinoPrice + lattePrice + americanoPrice + mochaPrice + macchiatoPrice + whitePrice + affogatoPrice + laitPrice + chaiPrice;
+            document.getElementById('totalPrice').innerText = `${totalPrice}€`;
+        }
+
+        function showSummary() {
+            const nom = document.getElementById('nom').value;
+            const prenom = document.getElementById('prenom').value;
+            const mail = document.getElementById('mail').value;
+            const expressoQty = document.getElementById('expressoQty').value;
+            const cappuccinoQty = document.getElementById('cappuccinoQty').value;
+            const latteQty = document.getElementById('latteQty').value;
+            const americanoQty = document.getElementById('americanoQty').value;
+            const mochaQty = document.getElementById('mochaQty').value;
+            const macchiatoQty = document.getElementById('macchiatoQty').value;
+            const whiteQty = document.getElementById('whiteQty').value;
+            const affogatoQty = document.getElementById('affogatoQty').value;
+            const laitQty = document.getElementById('laitQty').value;
+            const chaiQty = document.getElementById('chaiQty').value;
+
+            let summary = '';
+            summary += `<p>${nom} ${prenom}</p>`;
+            summary += `<p>${mail}</p>`;
+            if (expressoQty > 0) {summary += `<p>Expresso: ${expressoQty} x ${prices.expresso}€ = ${expressoQty * prices.expresso}€</p>`;}
+            if (cappuccinoQty > 0) {summary += `<p>Cappuccino: ${cappuccinoQty} x ${prices.cappuccino}€ = ${cappuccinoQty * prices.cappuccino}€</p>`;}
+            if (latteQty > 0) {summary += `<p>Latte: ${latteQty} x ${prices.latte}€ = ${latteQty * prices.latte}€</p>`;}
+            if (americanoQty > 0) {summary += `<p>Americano: ${americanoQty} x ${prices.americano}€ = ${americanoQty * prices.americano}€</p>`;}
+            if (mochaQty > 0) {summary += `<p>Mocha: ${mochaQty} x ${prices.mocha}€ = ${mochaQty * prices.mocha}€</p>`;}
+            if (macchiatoQty > 0) {summary += `<p>Macchiato: ${macchiatoQty} x ${prices.macchiato}€ = ${macchiatoQty * prices.macchiato}€</p>`;}
+            if (whiteQty > 0) {summary += `<p>Flat White: ${whiteQty} x ${prices.white}€ = ${whiteQty * prices.white}€</p>`;}
+            if (affogatoQty > 0) {summary += `<p>Affogato: ${affogatoQty} x ${prices.affogato}€ = ${affogatoQty * prices.affogato}€</p>`;}
+            if (laitQty > 0) {summary += `<p>Café au Lait: ${laitQty} x ${prices.lait}€ = ${laitQty * prices.lait}€</p>`;}
+            if (chaiQty > 0) {summary += `<p>Chai Latte: ${chaiQty} x ${prices.chai}€ = ${chaiQty * prices.chai}€</p>`;}
+
+            document.getElementById('summaryContent').innerHTML = summary;
+            document.getElementById('summaryFrame').style.display = 'block'
+            document.getElementById('commande').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
